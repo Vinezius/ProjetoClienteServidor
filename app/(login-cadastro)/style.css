@@ -1,0 +1,61 @@
+.formulario {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 10px;
+}
+
+.campo-formulario{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.input-formulario{
+    width: 50vw;
+}
+
+.container-formulario{
+    background-color: rgb(19, 19, 19);
+}
+
+.titulo{
+    color: #fff;
+}
+
+.botao-redirect{
+    text-decoration: none;
+}
+
+.container-botoes{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.botao-sucesso {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    width: 8rem;
+}
+
+.botao-redirect {
+    background-color: #FFD814;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    width: 8rem;
+}
