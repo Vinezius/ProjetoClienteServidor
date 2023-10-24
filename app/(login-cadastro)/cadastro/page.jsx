@@ -4,11 +4,23 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validacoesYup } from "../yupValidations";
 import apiProjeto from "@/app/services/api/api";
 import Link from "next/link";
+import { realizarCadastro } from "@/app/services/login-cadastro";
 
 async function handleSubmit(dadosForm) {
+
+    const { nome, email, senha, registro } = dadosForm;
+
+    const payload = {
+        nome,
+        email,
+        senha,
+        tipo_usuario: 0,
+        registro
+    }
+
     try {
-        const response = await apiProjeto.post('/login', dadosForm);
-        console.log(response.data);
+        const response = await realizarCadastro(payload);
+        console.log(response);
     } catch (error) {
         console.error(error);
     }
@@ -21,7 +33,7 @@ const RegistrationForm = () => (
                 nome: "",
                 email: "",
                 senha: "",
-                confirmarSenha: "",
+                registro: "",
             }}
             onSubmit={(values) => {handleSubmit(values)}}
         >
@@ -48,9 +60,9 @@ const RegistrationForm = () => (
                         </div>
 
                         <div className='campo-formulario'>
-                            <label htmlFor="confirmPassword">Confirmar senha</label>
-                            <Field name="confirmarSenha" type="password" onChange={handleChange} className="input-formulario"/>
-                            <ErrorMessage name="confirmarSenha" />
+                            <label htmlFor="registro">RA</label>
+                            <Field name="registro" onChange={handleChange} className="input-formulario"/>
+                            <ErrorMessage name="registro" />
                         </div>
                         <div className='container-botoes'>
                             <button><Link href="/login" className='botao-redirect'>Voltar para o Login</Link></button>
