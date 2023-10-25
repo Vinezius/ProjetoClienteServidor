@@ -1,22 +1,30 @@
 "use client";
 
-import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import apiProjeto  from '../../services/api/api';
-import { validacoesYup } from '../yupValidations';
 import Link from 'next/link';
-import { realizarLogin } from '@/app/services/login-cadastro';
+import { realizarLogin } from '@/app/services/login-cadastro-logout';
+import { useRouter } from 'next/navigation';
         
-async function handleSubmit(dadosForm) {
-    try {
-        const response = await realizarLogin(dadosForm);
-        console.log(response);
-    } catch (error) {
-        console.error(error);
-    }
-}
+const LoginPage = () => {
+    const router = useRouter();
 
-function LoginPage() {
+    async function handleSubmit(dadosForm) {
+        try {
+            const response = await realizarLogin(dadosForm);
+            if(response.success === true){
+                localStorage.setItem('userToken', response.token);
+                localStorage.setItem('userType', response.tipo_usuario)
+                alert('Login realizado com sucesso!');
+                router.push('/home')
+            }else{
+                alert(response.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     return (
         <Formik
             initialValues={{ registro: '', senha: '' }}
@@ -35,7 +43,6 @@ function LoginPage() {
                             <Field id="senha" name="senha" type="password" onChange={handleChange} className="input-formulario"/>
                         </div>
                         <div className='container-botoes'>
-                            <button><Link href="/cadastro" className='botao-redirect'>Fazer Cadastro</Link></button>
                             <button type="submit" className='botao-sucesso'>Entrar</button>
                         </div>
                     </Form>

@@ -8,10 +8,8 @@ const apiProjeto = axios.create({
   headers: {
     'Authorization': `${token}`,
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   },
-  withCredentials: true,
-  crossdomain: true,
+  withCredentials: false,
 });
 
 export default apiProjeto;
