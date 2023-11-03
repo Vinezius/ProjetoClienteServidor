@@ -3,10 +3,18 @@
 import { realizarLogout } from '@/app/services/login-cadastro-logout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Home = (props) => {
+    
     const tipo_usuario = localStorage.getItem('userType');
     const router = useRouter();
+
+    useEffect(() => {
+        if (localStorage.getItem('userToken') === null) {
+            router.push('/login');
+        }
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -26,12 +34,20 @@ const Home = (props) => {
     return (
         <div>
             <h1>Home</h1>
-            <button onClick={handleLogout}>Logout</button>
-            {tipo_usuario == 1 && 
-                <button>
-                    <Link href="/cadastro" className='botao-redirect'>Fazer Cadastro</Link>
+            <div className='container-home'>
+                <button onClick={handleLogout} className='botao-home'>Logout</button>
+                {tipo_usuario == 1 && 
+                    <button className='botao-home'>
+                        <Link href="/cadastro">Cadastrar Usuário</Link>
+                    </button>
+                }
+                <button className='botao-home'>
+                    <Link href="/perfil">Meu perfil</Link>
                 </button>
-            }
+                <button className='botao-home'>
+                    <Link href="#">Listar usuários</Link>
+                </button>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,103 @@
+
+body {
+    text-align: center;
+}
+
+h1 {
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    text-align: center;
+}
+
+.container-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 1rem;
+}
+
+.botao-home{
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #000000;
+    width: 10rem;
+    height: 10%;
+}
+
+.formulario {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 10px;
+}
+
+.campo-formulario{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.input-formulario{
+    width: 50vw;
+}
+
+.container-formulario{
+    background-color: rgb(19, 19, 19);
+}
+
+.titulo{
+    color: #fff;
+}
+
+.container-botoes{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.botoes-salvar-excluir{
+    width: 100%;
+}
+
+.botao{
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: #000000;
+    width: 5rem;
+}
+
+.botao-excluir{
+    background-color: rgb(255, 60, 60);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    width: 100%;
+    font-weight: bolder;
+}
+
+.botao-salvar{
+    background-color: rgb(60, 255, 70);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #000000;
+    width: 100%;
+    font-weight: bold;
+
+}

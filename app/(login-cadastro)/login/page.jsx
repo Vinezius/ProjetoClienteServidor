@@ -21,6 +21,7 @@ const LoginPage = () => {
             if(response.success === true){
                 localStorage.setItem('userToken', response.token);
                 localStorage.setItem('userType', response.tipo_usuario)
+                localStorage.setItem('registro', registro)
                 alert('Login realizado com sucesso!');
                 router.push('/home')
             }else{
