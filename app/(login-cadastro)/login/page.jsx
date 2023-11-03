@@ -1,16 +1,23 @@
 "use client";
 
 import { Formik, Form, Field } from 'formik';
-import Link from 'next/link';
 import { realizarLogin } from '@/app/services/login-cadastro-logout';
 import { useRouter } from 'next/navigation';
+import md5 from 'md5';
         
 const LoginPage = () => {
     const router = useRouter();
 
     async function handleSubmit(dadosForm) {
+        const {registro, senha} = dadosForm;
+        const senhaCriptografada = md5(senha);
+        const payload = {
+            registro,
+            senha: senhaCriptografada
+        }
+
         try {
-            const response = await realizarLogin(dadosForm);
+            const response = await realizarLogin(payload);
             if(response.success === true){
                 localStorage.setItem('userToken', response.token);
                 localStorage.setItem('userType', response.tipo_usuario)
@@ -36,7 +43,7 @@ const LoginPage = () => {
                         <h1 className='titulo'>Fazer login</h1>
                         <div className='campo-formulario'> 
                             <label htmlFor="registro">RA</label>
-                            <Field id="registro" name="registro" onChange={handleChange} className="input-formulario"/>
+                            <Field id="registro" name="registro" onChange={handleChange} className="input-formulario" type="number"/>
                         </div>
                         <div className='campo-formulario'> 
                             <label htmlFor="senha">Senha</label>

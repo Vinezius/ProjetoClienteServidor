@@ -4,18 +4,19 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
 import { realizarCadastro } from "@/app/services/login-cadastro-logout";
 import { useRouter } from "next/navigation";
-
+import md5 from "md5";
+        
 const RegistrationPage = (props) => {
     const router = useRouter();
 
     const handleSubmit = async (dadosForm) => {
-        const { nome, email, senha, registro } = dadosForm;
-
+        const { nome, email, senha, registro, tipo_usuario } = dadosForm;
+        const senhaCriptografada = md5(senha);
         const payload = {
             nome,
             email,
-            senha,
-            tipo_usuario: 0,
+            senha: senhaCriptografada,
+            tipo_usuario: parseInt(tipo_usuario),
             registro
         }
 
@@ -43,6 +44,7 @@ const RegistrationPage = (props) => {
                         email: "",
                         senha: "",
                         registro: "",
+                        tipo_usuario: 0
                     }}
                     onSubmit={(values) => {handleSubmit(values)}}
                 >
@@ -51,13 +53,13 @@ const RegistrationPage = (props) => {
                             <Form className='formulario'>
                                 <h1 className="titulo">Fazer cadastro</h1>
                                 <div className='campo-formulario'>
-                                    <label htmlFor="name">Name</label>
+                                    <label htmlFor="name">Nome</label>
                                     <Field name="nome" onChange={handleChange} className="input-formulario"/>
                                     <ErrorMessage name="nome" />
                                 </div>
 
                                 <div className='campo-formulario'>
-                                    <label htmlFor="email">Email</label>
+                                    <label htmlFor="email">E-mail</label>
                                     <Field name="email" type="email" onChange={handleChange} className="input-formulario"/>
                                     <ErrorMessage name="email" />
                                 </div>
@@ -70,8 +72,14 @@ const RegistrationPage = (props) => {
 
                                 <div className='campo-formulario'>
                                     <label htmlFor="registro">RA</label>
-                                    <Field name="registro" onChange={handleChange} className="input-formulario"/>
+                                    <Field name="registro" onChange={handleChange} className="input-formulario" type="number"/>
                                     <ErrorMessage name="registro" />
+                                </div>
+                                <div className='campo-formulario'>
+                                        <Field type="radio" id="usuarioComum" name="tipo_usuario" value="0" onChange={handleChange}/>
+                                        <label>Usuário Comum</label>
+                                        <Field type="radio" id="usuarioAdm" name="tipo_usuario" value="1" onChange={handleChange}/>
+                                        <label>Usuário Administrador</label>
                                 </div>
                                 <div className='container-botoes'>
                                     <button><Link href="/home" className='botao-redirect'>Voltar</Link></button>

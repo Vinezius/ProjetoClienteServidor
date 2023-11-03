@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const token = process.env.TOKEN_PROJETO;
+const token = localStorage?.getItem('userToken');
 
 const apiProjeto = axios.create({
 
   baseURL: 'http://localhost:3333',
   headers: {
-    'Authorization': `${token}`,
+    ...(token && {'Authorization': `Bearer ${token}`}),
     'Content-Type': 'application/json',
   },
   withCredentials: false,
