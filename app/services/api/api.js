@@ -1,15 +1,18 @@
 import axios from 'axios';
 
-const token = localStorage?.getItem('userToken');
+let apiProjeto;
 
-const apiProjeto = axios.create({
+if (typeof window !== 'undefined') {
+  const token = localStorage?.getItem('userToken');
 
-  baseURL: 'http://localhost:3333',
-  headers: {
-    ...(token && {'Authorization': `Bearer ${token}`}),
-    'Content-Type': 'application/json',
-  },
-  withCredentials: false,
-});
+  apiProjeto = axios.create({
+    baseURL: 'http://localhost:3333',
+    headers: {
+      ...(token && {'Authorization': `Bearer ${token}`}),
+      'Content-Type': 'application/json',
+    },
+    withCredentials: false,
+  });
+}
 
 export default apiProjeto;

@@ -45,7 +45,7 @@ const Home = (props) => {
                     <Link href="/perfil">Meu perfil</Link>
                 </button>
                 <button className='botao-home'>
-                    <Link href="#">Listar usuários</Link>
+                    <Link href="/listar-usuarios">Listar usuários</Link>
                 </button>
             </div>
         </div>
