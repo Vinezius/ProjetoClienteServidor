@@ -3,6 +3,7 @@ import apiProjeto from "../api/api";
 export async function buscarDadosUsuario(registro){
     try {
         const response = await apiProjeto.get(`/usuarios/${registro}`);
+        console.log(response.data);
         return(response.data);
     } catch (error) {
         return({ message: "Erro ao buscar dados do usuário",

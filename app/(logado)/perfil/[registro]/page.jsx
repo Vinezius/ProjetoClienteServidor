@@ -23,6 +23,7 @@ const perfilUsuarioLista = (params) => {
     const handleBuscarDadosUsuario = async () => {
         const response = await buscarDadosUsuario(registro);
         if(response.success === true){
+            console.log(response);
             setDadosUsuario(response.usuario);
         }else{
             alert(response.message);
@@ -52,8 +53,18 @@ const perfilUsuarioLista = (params) => {
     }
 
     const handleSubmit = async (dadosForm) => {
+        const { nome, senha, email, tipo_usuario } = dadosForm;
+        const { 'nome':nomeRota, 'senha':senhaRota, 'email':emailRota, 'tipo_usuario':tipo_usuarioRota } = dadosUsuario;
+
+        const payload = {
+            nome: nomeRota ? nomeRota : nome,
+            senha: senhaRota ? senhaRota : md5(senha),
+            email: emailRota ? emailRota : email,
+            tipo_usuario: tipo_usuarioRota ? tipo_usuarioRota : tipo_usuario
+        }
+
         try {
-            const response = await realizarEdicaoUsuario(registro, dadosForm);
+            const response = await realizarEdicaoUsuario(registro, payload);
             if(response.success === true){
                 alert('Perfil atualizado com sucesso!');
                 router.push('/home')
@@ -72,7 +83,8 @@ const perfilUsuarioLista = (params) => {
                     nome: '',
                     registro: '',
                     senha: '',
-                    email: ''
+                    email: '',
+                    tipo_usuario: 0
                 }}
                 onSubmit={(values) => {
                     handleSubmit(values);
@@ -83,14 +95,35 @@ const perfilUsuarioLista = (params) => {
                         <h1 className='titulo'>Visualizar Perfil</h1>
                         <Form className='formulario'>
                             <label className='titulo' htmlFor="nome">Nome:</label>
-                            <Field className="input-formulario" disabled={visualizarPerfil} type="text" name="nome" onChange={handleChange} value={values.nome} defaultValue={dadosUsuario.nome} />
+                            <Field className="input-formulario" disabled={visualizarPerfil} type="text" name="nome" onChange={handleChange} value={values.nome ? values.nome : dadosUsuario.nome}/>
 
                             <label className='titulo' htmlFor="senha">Senha:</label>
-                            <Field className="input-formulario" disabled={visualizarPerfil} type="password" name="senha" onChange={handleChange} value={values.senha} defaultValue={dadosUsuario.senha}/>
+                            <Field className="input-formulario" disabled={visualizarPerfil} type="password" name="senha" onChange={handleChange} value={values.senha ? values.senha : dadosUsuario.senha}/>
 
                             <label className='titulo' htmlFor="email">Email:</label>
-                            <Field className="input-formulario" disabled={visualizarPerfil} type="email" name="email" onChange={handleChange} value={values.email} defaultValue={dadosUsuario.email}/>
-
+                            <Field className="input-formulario" disabled={visualizarPerfil} type="email" name="email" onChange={handleChange} value={values.email ? values.email : dadosUsuario.email}/>
+                            <div className='campo-formulario'>
+                                    <Field 
+                                        type="radio" 
+                                        id="usuarioComum" 
+                                        disabled={visualizarPerfil && dadosUsuario.tipo_usuario === 0} 
+                                        name="tipo_usuario" 
+                                        value={0} 
+                                        onChange={handleChange} 
+                                        checked={dadosUsuario.tipo_usuario===0 || (!visualizarPerfil && dadosUsuario.tipo_usuario !== 0)}
+                                    />
+                                    <label>Usuário Comum</label>
+                                    <Field 
+                                        type="radio" 
+                                        id="usuarioAdm" 
+                                        disabled={visualizarPerfil && dadosUsuario.tipo_usuario === 1} 
+                                        name="tipo_usuario" 
+                                        value={1} 
+                                        onChange={handleChange} 
+                                        checked={dadosUsuario.tipo_usuario===1 || (!visualizarPerfil && dadosUsuario.tipo_usuario !== 1)}
+                                    />
+                                    <label>Usuário Administrador</label>
+                            </div>
                             <div className="container-botoes">
                                 {tipoUsuario == 1 && 
                                     <button type="button" className='botao' onClick={()=>setvisualizarPerfil(prev => !prev)}>{visualizarPerfil ? 'Editar perfil' : 'Visualizar perfil'}

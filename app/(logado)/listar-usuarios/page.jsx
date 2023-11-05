@@ -6,23 +6,12 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 const listaUsuarios = () => {
-    const [dadosUsuarios, setDadosUsuarios] = useState([{
-        registro: 1,
-        nome: 'teste',
-        email: 'teste@teste',
-        tipo_usuario: 1
-    },
-    {
-        registro: 2,
-        nome: 'teste2',
-        email: 'teste2@teste',
-        tipo_usuario: 0
-    }
-    ]);
+    const [dadosUsuarios, setDadosUsuarios] = useState([]);
 
     const handleBuscarDadosUsuarios = async () => {
         const response = await buscarDadosUsuarios();
         if(response.success === true){
+          console.log(response);
             setDadosUsuarios(response.usuarios);
         }else{
             alert(response.message);
