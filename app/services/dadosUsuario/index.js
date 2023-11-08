@@ -6,6 +6,7 @@ export async function buscarDadosUsuario(registro){
         console.log(response.data);
         return(response.data);
     } catch (error) {
+        console.log(error);
         return({ message: "Erro ao buscar dados do usuário",
                 success: false});
     }

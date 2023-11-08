@@ -20,7 +20,6 @@ const LoginPage = () => {
             const response = await realizarLogin(payload);
             if(response.success === true){
                 localStorage.setItem('userToken', response.token);
-                localStorage.setItem('userType', response.tipo_usuario)
                 localStorage.setItem('registro', registro)
                 alert('Login realizado com sucesso!');
                 router.push('/home')
@@ -30,6 +29,14 @@ const LoginPage = () => {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    const handleIp = (ip) =>{
+        localStorage.setItem('ip', ip);
+    }
+
+    const handlePorta = (porta) =>{
+        localStorage.setItem('porta', porta);
     }
 
 
@@ -49,6 +56,14 @@ const LoginPage = () => {
                         <div className='campo-formulario'> 
                             <label htmlFor="senha">Senha</label>
                             <Field id="senha" name="senha" type="password" onChange={handleChange} className="input-formulario"/>
+                        </div>
+                        <div className='campo-formulario'> 
+                            <label htmlFor="senha">IP de conexão</label>
+                            <Field id="ip" name="ip" onChange={e => {handleChange(e); handleIp(e.target.value)}} className="input-formulario"/>
+                        </div>
+                        <div className='campo-formulario'> 
+                            <label htmlFor="senha">Porta</label>
+                            <Field id="porta" name="porta" onChange={e => {handleChange(e); handlePorta(e.target.value)}} className="input-formulario"/>
                         </div>
                         <div className='container-botoes'>
                             <button type="submit" className='botao-sucesso'>Entrar</button>
