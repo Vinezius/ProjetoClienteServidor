@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 const Home = (props) => {
 
-    const registro = localStorage.getItem('registro');
+    const registro = sessionStorage.getItem('registro');
     const [tipoUsuario, setTipoUsuario] = useState();
     const router = useRouter();
 
@@ -16,14 +16,14 @@ const Home = (props) => {
         const response = await buscarDadosUsuario(registro);
         if(response.success === true){
             setTipoUsuario(response.usuario.tipo_usuario);
-            localStorage.setItem('userType', response.usuario.tipo_usuario);
+            sessionStorage.setItem('userType', response.usuario.tipo_usuario);
         }else{
             alert(response.message);
         }
     }
 
     useEffect(() => {
-        if (localStorage.getItem('userToken') === null) {
+        if (sessionStorage.getItem('userToken') === null) {
             router.push('/login');
         }
         handleBuscarDadosUsuario();
@@ -34,7 +34,7 @@ const Home = (props) => {
             const response = await realizarLogout();
             if (response.success === true) {
                 alert("Logout realizado com sucesso!");
-                localStorage.clear();
+                sessionStorage.clear();
                 router.push('/login');
             } else {
                 alert(response.message);
@@ -60,6 +60,9 @@ const Home = (props) => {
                     </button>
                     <button className='botao-home'>
                         <Link href="/listar-usuarios">Listar usuários</Link>
+                    </button>
+                    <button className='botao-home'>
+                        <Link href="/segmentos-pontos">Pontos e Segmentos</Link>
                     </button>
                 </div>
             </div>

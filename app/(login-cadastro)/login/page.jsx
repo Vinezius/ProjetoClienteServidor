@@ -19,8 +19,8 @@ const LoginPage = () => {
         try {
             const response = await realizarLogin(payload);
             if(response.success === true){
-                localStorage.setItem('userToken', response.token);
-                localStorage.setItem('registro', registro)
+                sessionStorage.setItem('userToken', response.token);
+                sessionStorage.setItem('registro', registro)
                 alert('Login realizado com sucesso!');
                 router.push('/home')
             }else{
@@ -32,11 +32,11 @@ const LoginPage = () => {
     }
 
     const handleIp = (ip) =>{
-        localStorage.setItem('ip', ip);
+        sessionStorage.setItem('ip', ip);
     }
 
     const handlePorta = (porta) =>{
-        localStorage.setItem('porta', porta);
+        sessionStorage.setItem('porta', porta);
     }
 
 

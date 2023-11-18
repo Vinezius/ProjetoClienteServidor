@@ -17,7 +17,7 @@ const perfil = () => {
     });
     const [visualizarPerfil, setvisualizarPerfil] = useState(true);
     const router = useRouter();
-    const registro = localStorage.getItem('registro');
+    const registro = sessionStorage.getItem('registro');
 
     const handleBuscarDadosUsuario = async () => {
         const response = await buscarDadosUsuario(registro);

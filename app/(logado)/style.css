@@ -101,3 +101,27 @@ h1 {
     font-weight: bold;
 
 }
+
+.botao-redirect {
+    background-color: #FFD814;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    width: 8rem;
+    text-decoration: none;
+
+}
+
+.botao-sucesso {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    width: 8rem;
+}

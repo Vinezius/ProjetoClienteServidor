@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 let apiProjeto;
-const ip = localStorage.getItem('ip');
-const porta = localStorage.getItem('porta');
+const ip = sessionStorage.getItem('ip');
+const porta = sessionStorage.getItem('porta');
 
 if (typeof window !== 'undefined') {
-  const token = localStorage?.getItem('userToken');
+  const token = sessionStorage?.getItem('userToken');
 
   apiProjeto = axios.create({
     baseURL: `http://${ip}:${porta}`,
