@@ -43,8 +43,8 @@ const ListarSegmentos = () => {
         <h1>Listagem de Segmentos</h1>
         {dadosSegmentos.map((segmento, index) => (
         <div key={index}>
-            <h3><Link href={`/pontos/${segmento.segmento_id}`}> Partindo de: {segmento.ponto_inicial}</Link></h3>
-            <h3><Link href={`/pontos/${segmento.segmento_id}`}> Terminando em: {segmento.ponto_final}</Link></h3>
+            <h3><Link href={`/segmentos/${segmento.segmento_id}`}> Partindo de: {segmento.ponto_inicial}</Link></h3>
+            <h3><Link href={`/segmentos/${segmento.segmento_id}`}> Terminando em: {segmento.ponto_final}</Link></h3>
             <label>---------------------------------------------------</label>
             <br/>
         </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { buscarDadosPonto, realizarExclusaoPonto } from '@/app/services/pontos-segmentos';
+import { buscarDadosPonto, realizarEdicaoPonto, realizarExclusaoPonto } from '@/app/services/pontos-segmentos';
 import { Field, Form, Formik } from 'formik';
 import Link from 'next/link';
 
@@ -54,9 +54,9 @@ const VisualizarPonto = (params) => {
       }
 
       try {
-          const response = await realizarEdicaoUsuario(registro, payload);
+          const response = await realizarEdicaoPonto(registro, payload);
           if(response.success === true){
-              alert('Perfil atualizado com sucesso!');
+              alert('Ponto atualizado com sucesso!');
               router.push('/home')
           }else{
               alert(response.message);

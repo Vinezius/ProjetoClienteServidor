@@ -5,7 +5,7 @@ import Link from "next/link";
 import { realizarCadastro } from "@/app/services/login-cadastro-logout";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { buscarDadosPontos } from "@/app/services/pontos-segmentos";
+import { buscarDadosPontos, cadastrarSegmento } from "@/app/services/pontos-segmentos";
         
 const RegistrationPage = (props) => {
     const router = useRouter();
@@ -31,7 +31,7 @@ const RegistrationPage = (props) => {
         }
 
         try {
-            const response = await realizarCadastro(payload);
+            const response = await cadastrarSegmento(payload);
             console.log(response);
             if(response.success){
                 alert('Segmento cadastrado com sucesso!');
