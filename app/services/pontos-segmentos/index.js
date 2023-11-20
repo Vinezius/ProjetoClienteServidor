@@ -1,3 +1,5 @@
+import apiProjeto from "../api/api";
+
 export async function cadastrarPonto(payload){
     try {
         const response = await apiProjeto.post('/pontos', payload);
@@ -20,7 +22,7 @@ export async function buscarDadosPontos(){
 
 export async function buscarDadosPonto(id){
     try {
-        const response = await apiProjeto.get(`{/pontos/${id}`);
+        const response = await apiProjeto.get(`/pontos/${id}`);
         return(response.data);
     } catch (error) {
         return({ message: "Erro ao buscar ponto",
@@ -30,7 +32,7 @@ export async function buscarDadosPonto(id){
 
 export async function realizarExclusaoPonto(id){
     try {
-        const response = await apiProjeto.delete(`{/pontos/${id}`);
+        const response = await apiProjeto.delete(`/pontos/${id}`);
         return(response.data);
     } catch (error) {
         return({ message: "Erro ao excluir ponto",
@@ -40,9 +42,10 @@ export async function realizarExclusaoPonto(id){
 
 export async function realizarEdicaoPonto(id, payload){
     try {
-        const response = await apiProjeto.put(`{/pontos/${id}`, payload);
+        const response = await apiProjeto.put(`/pontos/${id}`, payload);
         return(response.data);
     } catch (error) {
+        console.log(error);
         return({ message: "Erro ao editar ponto",
         success: false});
     }
@@ -60,7 +63,7 @@ export async function buscarDadosSegmentos(){
 
 export async function buscarDadosSegmento(id){
     try {
-        const response = await apiProjeto.get(`{/segmentos/${id}`);
+        const response = await apiProjeto.get(`/segmentos/${id}`);
         return(response.data);
     } catch (error) {
         return({ message: "Erro ao buscar ponto",
@@ -70,7 +73,7 @@ export async function buscarDadosSegmento(id){
 
 export async function realizarExclusaoSegmento(id){
     try {
-        const response = await apiProjeto.delete(`{/segmentos/${id}`);
+        const response = await apiProjeto.delete(`/segmentos/${id}`);
         return(response.data);
     } catch (error) {
         return({ message: "Erro ao excluir ponto",
@@ -80,7 +83,7 @@ export async function realizarExclusaoSegmento(id){
 
 export async function realizarEdicaoSegmento(id, payload){
     try {
-        const response = await apiProjeto.put(`{/segmentos/${id}`, payload);
+        const response = await apiProjeto.put(`/segmentos/${id}`, payload);
         return(response.data);
     } catch (error) {
         return({ message: "Erro ao editar ponto",

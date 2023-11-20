@@ -33,9 +33,6 @@ const perfil = () => {
     }, []);
 
     const handleDelete = async () => {
-        const senha = prompt('Tem certeza que deseja excluir seu perfil? Insira sua senha para confirmar');
-        const senhaCripto = md5(senha);
-
         try {
             const response = await realizarExclusaoUsuario(registro, senhaCripto);
             if(response.success === true){
@@ -51,14 +48,13 @@ const perfil = () => {
     }
 
     const handleSubmit = async (dadosForm) => {
-        const { nome, senha, email, tipo_usuario } = dadosForm;
-        const { 'nome':nomeRota, 'senha':senhaRota, 'email':emailRota, 'tipo_usuario':tipo_usuarioRota } = dadosUsuario;
+        const { nome, senha, email } = dadosForm;
+        const { 'nome':nomeRota, 'senha':senhaRota, 'email':emailRota} = dadosUsuario;
 
         const payload = {
-            nome: nomeRota ? nomeRota : nome,
-            senha: senhaRota ? senhaRota : md5(senha),
-            email: emailRota ? emailRota : email,
-            tipo_usuario: tipo_usuarioRota ? tipo_usuarioRota : tipo_usuario
+            nome: nome ? nome : nomeRota,
+            senha: senha ? md5(senha) : senhaRota,
+            email: email ? email : emailRota,
         }
 
         try {
@@ -104,7 +100,7 @@ const perfil = () => {
                                     <Field 
                                         type="radio" 
                                         id="usuarioComum" 
-                                        disabled={visualizarPerfil && dadosUsuario.tipo_usuario === 0} 
+                                        disabled
                                         name="tipo_usuario" 
                                         value={0} 
                                         onChange={handleChange} 
@@ -114,7 +110,7 @@ const perfil = () => {
                                     <Field 
                                         type="radio" 
                                         id="usuarioAdm" 
-                                        disabled={visualizarPerfil && dadosUsuario.tipo_usuario === 1} 
+                                        disabled
                                         name="tipo_usuario" 
                                         value={1} 
                                         onChange={handleChange} 

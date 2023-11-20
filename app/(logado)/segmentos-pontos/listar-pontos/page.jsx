@@ -5,16 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const ListarPontos = () => {
-    const [dadosPontos, setDadosPontos] = useState([
-    {
-        nome: "Primeiro ponto",
-        ponto_id: 0,
-    },
-    {
-        nome: "Segundo ponto",
-        ponto_id: 1,
-    }
-    ]);
+    const [dadosPontos, setDadosPontos] = useState([]);
 
     const handleBuscarDadosPontos = async () => {
         const response = await buscarDadosPontos();

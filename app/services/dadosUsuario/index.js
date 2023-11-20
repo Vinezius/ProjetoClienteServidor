@@ -32,10 +32,9 @@ export async function realizarEdicaoUsuario(registro, dadosForm){
                 success: false});
     }
 }
-export async function realizarExclusaoUsuario(registro,senha){
+export async function realizarExclusaoUsuario(registro){
     try {
-        const response = await apiProjeto.delete(`/usuarios/${registro}`, 
-        {senha: {senha}});
+        const response = await apiProjeto.delete(`/usuarios/${registro}`);
         
         return(response.data);
     } catch (error) {

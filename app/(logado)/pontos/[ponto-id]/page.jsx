@@ -7,14 +7,10 @@ import { Field, Form, Formik } from 'formik';
 import Link from 'next/link';
 
 const VisualizarPonto = (params) => {
-    const [dadosPonto, setDadosPonto] = useState({
-        nome: '',
-        ponto_id: null,
-    });
+    const [dadosPonto, setDadosPonto] = useState({});
     const [visualizarPonto, setvisualizarPonto] = useState(true);
-
     const router = useRouter();
-    const index = params.params.index;
+    const index = params.params["ponto-id"];
     const tipoUsuario = sessionStorage.getItem('userType');
     
     const handleBuscarDadosPonto = async () => {
@@ -28,14 +24,12 @@ const VisualizarPonto = (params) => {
     }
 
     const handleDelete = async () => {
-      const senha = prompt('Tem certeza que deseja excluir esse Ponto?');
-      const senhaCripto = md5(senha);
 
       try {
-          const response = await realizarExclusaoPonto(registro, senhaCripto);
+          const response = await realizarExclusaoPonto(index);
           if(response.success === true){
               alert('Excluido com sucesso!');
-              router.push('/login')
+              router.push('/segmentos-pontos')
           }else{
               alert(response.message);
           }
@@ -50,11 +44,11 @@ const VisualizarPonto = (params) => {
       const { 'nome':nomeRota} = dadosPonto;
 
       const payload = {
-          nome: nomeRota ? nomeRota : nome,
+          nome: nome ? nome : nomeRota,
       }
 
       try {
-          const response = await realizarEdicaoPonto(registro, payload);
+          const response = await realizarEdicaoPonto(index, payload);
           if(response.success === true){
               alert('Ponto atualizado com sucesso!');
               router.push('/home')
