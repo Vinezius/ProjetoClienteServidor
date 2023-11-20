@@ -11,27 +11,18 @@ const VisualizarPonto = (params) => {
         nome: '',
         ponto_id: null,
     });
-    const [dadosPontos, setDadosPontos] = useState([
-        {
-            nome: "Primeiro ponto",
-            ponto_id: 0,
-        },
-        {
-            nome: "Segundo ponto",
-            ponto_id: 1,
-        }
-        ]);
+    const [dadosPontos, setDadosPontos] = useState([]);
     const [visualizarSegmento, setvisualizarSegmento] = useState(true);
 
     const router = useRouter();
-    const index = params.params.index;
+    const index = params.params['segmento-id'];
     const tipoUsuario = sessionStorage.getItem('userType');
     
     const handleBuscarDadosSegmento = async () => {
         const response = await buscarDadosSegmento(index);
         if(response.success === true){
             console.log(response);
-            setDadosSegmento(response.Segmento);
+            setDadosSegmento(response.segmento);
         }else{
             alert(response.message);
         }
@@ -112,8 +103,8 @@ const VisualizarPonto = (params) => {
                     <div className='container-formulario'>
                         <h1 className='titulo'>Visualizar Segmento</h1>
                         <Form className='formulario'>
-                            <label className='titulo' htmlFor="nome">Nome:</label>
-                            <Field className="input-formulario" disabled={visualizarSegmento} type="text" name="nome" onChange={handleChange} value={values.nome ? values.nome : dadosSegmento.nome}/>
+                            <label className='titulo' htmlFor="nome">Direção:</label>
+                            <Field className="input-formulario" disabled={visualizarSegmento} type="text" name="direcao" onChange={handleChange} value={values.direcao ? values.direcao : dadosSegmento.direcao}/>
 
                             <div className='campo-formulario'>
                                         <label htmlFor="email">Ponto inicial:</label>
@@ -137,24 +128,24 @@ const VisualizarPonto = (params) => {
                             <div className='campo-formulario'>
                                     <Field 
                                         type="radio" 
-                                        id="usuarioComum" 
-                                        disabled={visualizarSegmento && dadosSegmento.tipo_usuario === 0} 
-                                        name="tipo_usuario" 
+                                        id="ativo" 
+                                        disabled={visualizarSegmento && dadosSegmento.status === 0} 
+                                        name="status" 
                                         value={0} 
                                         onChange={handleChange} 
-                                        checked={dadosSegmento.tipo_usuario===0 || (!visualizarSegmento && dadosSegmento.tipo_usuario !== 0)}
+                                        checked={dadosSegmento.status===1 || (!visualizarSegmento && dadosSegmento.status !== 1)}
                                     />
-                                    <label>Usuário Comum</label>
+                                    <label>Ativo</label>
                                     <Field 
                                         type="radio" 
-                                        id="usuarioAdm" 
-                                        disabled={visualizarSegmento && dadosSegmento.tipo_usuario === 1} 
-                                        name="tipo_usuario" 
+                                        id="inativo" 
+                                        disabled={visualizarSegmento && dadosSegmento.status === 1} 
+                                        name="status" 
                                         value={1} 
                                         onChange={handleChange} 
-                                        checked={dadosSegmento.tipo_usuario===1 || (!visualizarSegmento && dadosSegmento.tipo_usuario !== 1)}
+                                        checked={dadosSegmento.status===0 || (!visualizarSegmento && dadosSegmento.status !== 0)}
                                     />
-                                    <label>Usuário Administrador</label>
+                                    <label>Inativo</label>
                             </div>
                             <div className="container-botoes">
                                 {tipoUsuario == 1 && 
