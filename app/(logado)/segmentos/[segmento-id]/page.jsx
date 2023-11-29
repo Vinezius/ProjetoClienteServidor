@@ -45,7 +45,7 @@ const VisualizarPonto = (params) => {
           const response = await realizarExclusaoSegmento(index);
           if(response.success === true){
               alert('Excluido com sucesso!');
-              router.push('/login')
+              router.push('/home')
           }else{
               alert(response.message);
           }
@@ -61,16 +61,16 @@ const VisualizarPonto = (params) => {
 
         const payload = {
             distancia: distanciaRota ? parseFloat(distanciaRota) : parseFloat(distancia),
-            ponto_inicial: ponto_inicial_rota ? parseFloat(ponto_inicial_rota) : parseFloat(ponto_inicial),
-            ponto_final: ponto_final_rota ? parseFloat(ponto_final_rota) : parseFloat(ponto_final),
+            ponto_inicial,
+            ponto_final,
             status: status_rota ? parseInt(status_rota) : parseInt(status),
             direcao: direcao_rota ? direcao_rota : direcao,
         }
 
         try {
-            const response = await realizarEdicaoSegmento(registro, payload);
+            const response = await realizarEdicaoSegmento(index, payload);
             if(response.success === true){
-                alert('Perfil atualizado com sucesso!');
+                alert('Segmento atualizado com sucesso!');
                 router.push('/home')
             }else{
                 alert(response.message);
@@ -108,16 +108,16 @@ const VisualizarPonto = (params) => {
 
                             <div className='campo-formulario'>
                                         <label htmlFor="email">Ponto inicial:</label>
-                                        <Field name="ponto_inicial" as="select" onChange={handleChange}>
+                                        <Field name="ponto_inicial" as="select" onChange={handleChange} disabled={visualizarSegmento}>
                                         <option value="" disabled selected hidden>Selecione um ponto</option>
                                             {dadosPontos.map((ponto, index) => (
                                                 <option key={index} value={ponto.ponto_id}>{ponto.nome}</option>
                                             ))}
                                         </Field>
-                                </div>
+                            </div>
                                 <div className='campo-formulario'>
                                         <label htmlFor="email">Ponto Final:</label>
-                                        <Field name="ponto_final" as="select" onChange={handleChange}>
+                                        <Field name="ponto_final" as="select" onChange={handleChange} disabled={visualizarSegmento}>
                                         <option value="" disabled selected hidden>Selecione um ponto</option>
                                             {dadosPontos.map((ponto, index) => (
                                                 <option key={index} value={ponto.ponto_id}>{ponto.nome}</option>
@@ -158,7 +158,7 @@ const VisualizarPonto = (params) => {
                                         <button className='botao-salvar' type="submit">Salvar alterações
                                         </button>}
                                     {tipoUsuario == 1 && 
-                                        <button type="button" className='botao-excluir' onClick={handleDelete}>Excluir perfil
+                                        <button type="button" className='botao-excluir' onClick={handleDelete}>Excluir segmento
                                     </button>}
                                 </div>
                             </div>          
